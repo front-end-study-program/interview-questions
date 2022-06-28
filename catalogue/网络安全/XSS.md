@@ -4,14 +4,22 @@
 
 ## 攻击方式
 
-1.反射型 XSS 攻击 （非持久型 XSS）
+### 一. 反射型 XSS 攻击 （非持久型 XSS）
 
 > 反射型 XSS 攻击，其原理就是攻击者创建特殊的 URL 链接，诱导用户访问。当用户访问后会将其 URL 中恶意参数拼接到网页返回的 html 内容当中，达到攻击的手段。
 
-1.1.模拟场景
+#### 模拟场景
 
-> 反射型 XSS 操场演示了这种攻击手段
+> [反射型 XSS 操场](https://github.com/front-end-study-program/interview-questions/tree/main/playground/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/XSS/%E5%8F%8D%E5%B0%84%E5%9E%8BXSS)演示了这种攻击手段
 
-- 攻击者给出恶意 URL 链接
-- 用户登录后访问恶意链接
-- 恶意链接中的参数内容就会插入到 html 中，最后执行脚本攻击
+![反射型XSS](https://github.com/front-end-study-program/interview-questions/tree/main/playground/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/XSS/%E5%8F%8D%E5%B0%84%E5%9E%8BXSS/public/xss.png)
+
+1. 攻击者给出恶意 URL 链接
+2. 用户登录拿到用户信息
+3. 用户访问恶意链接
+4. 攻击者携带用户信息进行攻击
+
+#### 防御手段
+
+1. 针对用户 cookie 信息可以通过服务端设置 httpOnly 来阻止浏览器脚本访问 cookie
+2. 针对请求的返回信息做脚本语义转换来阻止脚本执行

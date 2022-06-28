@@ -2,10 +2,9 @@
   "name": "reflex-xss-playground",
   "version": "1.0.0",
   "description": "反射型xss 的操场",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server/index.js"
   },
   "author": "",
   "license": "MIT",

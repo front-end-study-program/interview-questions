@@ -5,9 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>list</title>
+  <script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
 </head>
 <body>
   列表
-  <!-- http://localhost:3000/list?msg=<script>alert(`我拿到你的cookie信息：${document.cookie}啦！`)</script> -->
+  <div>
+    <input id="searchInput" type="text">
+    <button id="searchBtn">搜索</button>
+  </div>
+  <div class="content">
+    <!-- 通过上面搜索框输入恶意代码。来实现攻击的手段 -->
+  </div>
+  <script>
+    const searchInput = document.querySelector('#searchInput')
+    const searchBtn = document.querySelector('#searchBtn')
+    const contentBox = document.querySelector('.content')
+    searchBtn.addEventListener("click", () => {
+      const value = searchInput.value
+      fetch('/list', {
+        method: "post",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ msg: value })
+      })
+        .then(res => res.json())
+        .then(res => {
+          // 2.通过对返回信息进行语义转换来防止代码插入
+          contentBox.innerHTML = filterXSS(res.msg)
+        })
+    })
+  </script>
 </body>
 </html>
